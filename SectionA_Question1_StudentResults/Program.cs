@@ -28,6 +28,8 @@ Notes:
 ============================================================
 */
 
+using System;
+
 class Program
 {
     static void Main(string[] args)
@@ -64,6 +66,6 @@ class Program
         Console.WriteLine($"Total Marks: {totalStudentMarks}");
         Console.WriteLine($"Average Marks: {averageMarks:F2}");
         Console.WriteLine($"Result: {result}");
-        Console.WriteLine("Result issued at: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+        Console.WriteLine("Result issued at: " + DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss"));
     }
 }
