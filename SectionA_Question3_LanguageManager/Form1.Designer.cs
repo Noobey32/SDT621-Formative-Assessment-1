@@ -98,6 +98,7 @@
             btnRemoveLanguage.TabIndex = 2;
             btnRemoveLanguage.Text = "Remove";
             btnRemoveLanguage.UseVisualStyleBackColor = true;
+            btnRemoveLanguage.Click += btnRemoveLanguage_Click;
             // 
             // lblWarning
             // 

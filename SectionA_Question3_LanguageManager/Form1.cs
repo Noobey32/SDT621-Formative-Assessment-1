@@ -43,8 +43,9 @@ namespace SectionA_Question3_LanguageManager
         {
             // user input + validation
             string userInput = txtInput.Text.Trim();
-            if (string.IsNullOrEmpty(userInput)) { 
-                ShowWarning("Please enter a programming language.", 2000);
+            if (string.IsNullOrEmpty(userInput))
+            {
+                ShowWarning("Please enter a programming language to Add.", 2000);
                 return;
             }
 
@@ -58,9 +59,38 @@ namespace SectionA_Question3_LanguageManager
 
             // add to list and update count
             lbxLanguageList.Items.Add(userInput);
+            txtInput.Clear();
+            txtInput.Focus();
             languageCount++;
-            btnRemoveLanguage.Enabled = true;
             UpdateLabel($"Added: '{userInput}' at {DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss")}");
+            btnRemoveLanguage.Enabled = true;
+        }
+
+        private void btnRemoveLanguage_Click(object sender, EventArgs e)
+        {
+            // user input + validation
+            string userInput = txtInput.Text.Trim();
+            if (string.IsNullOrEmpty(userInput))
+            {
+                ShowWarning("Please enter a programming language to Remove.", 2000);
+                return;
+            }
+
+            // check for existing
+            bool exists = lbxLanguageList.Items.Contains(userInput);
+            if (!exists)
+            {
+                ShowWarning("This programming language is not in the list.", 2000);
+                return;
+            }
+
+            lbxLanguageList.Items.Remove(userInput);
+            txtInput.Clear();
+            txtInput.Focus();
+            languageCount--;
+            UpdateLabel($"Removed: '{userInput}' at {DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss")}");
+            if (languageCount == 0)
+                btnRemoveLanguage.Enabled = false;
         }
 
         private void UpdateLabel(string content)
