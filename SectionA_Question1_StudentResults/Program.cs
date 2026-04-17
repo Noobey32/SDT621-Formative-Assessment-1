@@ -32,6 +32,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        // gathering user inputs
         Console.Write("Enter student name: ");
         string studentName = Console.ReadLine();
 
@@ -52,5 +53,17 @@ class Program
             }
             totalStudentMarks += mark;
         }
+
+        // calculations
+        double averageMarks = (double)totalStudentMarks / NUMBER_OF_SUBJECTS;
+        string result = averageMarks >= 50 ? "PASS" : "FAIL";
+
+        // output
+        Console.WriteLine("\n===== Student Results =====");
+        Console.WriteLine($"Student Name: {studentName}");
+        Console.WriteLine($"Total Marks: {totalStudentMarks}");
+        Console.WriteLine($"Average Marks: {averageMarks:F2}");
+        Console.WriteLine($"Result: {result}");
+        Console.WriteLine("Result issued at: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
     }
 }
