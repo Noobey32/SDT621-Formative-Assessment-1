@@ -93,6 +93,7 @@
             btnGenerateProfile.TabIndex = 4;
             btnGenerateProfile.Text = "Generate Profile";
             btnGenerateProfile.UseVisualStyleBackColor = true;
+            btnGenerateProfile.Click += btnGenerateProfile_Click;
             // 
             // label2
             // 

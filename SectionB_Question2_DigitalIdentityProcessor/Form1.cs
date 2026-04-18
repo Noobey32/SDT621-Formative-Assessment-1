@@ -1,3 +1,8 @@
+// todo
+// DetermineAge method
+//   > Move to CitizenProfile class and make it public static
+//   > Use month and day to determine exact age and not just year
+
 namespace SectionB_Question2_DigitalIdentityProcessor
 {
     public partial class Form1 : Form
@@ -7,7 +12,7 @@ namespace SectionB_Question2_DigitalIdentityProcessor
             InitializeComponent();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e){}
+        private void textBox2_TextChanged(object sender, EventArgs e) { }
 
         private void btnValidate_Click(object sender, EventArgs e)
         {
@@ -18,6 +23,11 @@ namespace SectionB_Question2_DigitalIdentityProcessor
             lblValidOutput.Visible = true;
 
             // todo? check user's age using a method from CitizenProfile class
+        }
+
+        private void btnGenerateProfile_Click(object sender, EventArgs e)
+        {
+
         }
 
         private static (string message, bool isValid) ValidateID(string id)
