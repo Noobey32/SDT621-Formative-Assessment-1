@@ -38,7 +38,7 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
-            lbxGenerateOutput = new ListBox();
+            lbxOutput = new ListBox();
             lblValidOutput = new Label();
             SuspendLayout();
             // 
@@ -132,13 +132,13 @@
             label5.TabIndex = 9;
             label5.Text = "Complete this form with your information";
             // 
-            // lbxGenerateOutput
+            // lbxOutput
             // 
-            lbxGenerateOutput.FormattingEnabled = true;
-            lbxGenerateOutput.Location = new Point(471, 134);
-            lbxGenerateOutput.Name = "lbxGenerateOutput";
-            lbxGenerateOutput.Size = new Size(220, 154);
-            lbxGenerateOutput.TabIndex = 10;
+            lbxOutput.FormattingEnabled = true;
+            lbxOutput.Location = new Point(471, 134);
+            lbxOutput.Name = "lbxOutput";
+            lbxOutput.Size = new Size(220, 154);
+            lbxOutput.TabIndex = 10;
             // 
             // lblValidOutput
             // 
@@ -157,7 +157,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(870, 452);
             Controls.Add(lblValidOutput);
-            Controls.Add(lbxGenerateOutput);
+            Controls.Add(lbxOutput);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -186,7 +186,7 @@
         private Label label3;
         private Label label4;
         private Label label5;
-        private ListBox lbxGenerateOutput;
+        private ListBox lbxOutput;
         private Label lblValidOutput;
     }
 }
