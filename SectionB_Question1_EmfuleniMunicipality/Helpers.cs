@@ -25,7 +25,7 @@ namespace SectionB_Question1_EmfuleniMunicipality
 
         public string GetStringValue(string prompt)
         {
-            Console.WriteLine(prompt);
+            Console.Write(prompt);
             string value = Console.ReadLine(); // do not call GetStringValue() here -- results in infinite loop
 
             if (String.IsNullOrWhiteSpace(value))

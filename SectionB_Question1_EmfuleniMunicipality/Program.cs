@@ -4,12 +4,9 @@ using System.Runtime.CompilerServices;
 
 class Program
 {
-    private static Helpers helpers = new();
-
     static void Main(string[] args)
     {
-        Console.WriteLine("=== Welcome to Emfuleni Municipality Service Desk ===\n");
-        int numberOfResidents = helpers.GetValidInt("How many residents would you like to register? ");
+        Console.WriteLine("=== Welcome to Emfuleni Municipality Service Desk ===");
 
         Console.WriteLine("\n=== Resident Registration ===");
         Resident[] residents = RegisterResidents();
@@ -29,6 +26,7 @@ class Program
         utilitiesManager.DisplayServiceRequests(processedRequests, false);
 
         Console.WriteLine("\n=== Final Municipal Report ===");
+        // if 0, do not show or indicate that it is 0
         Console.WriteLine($"Total Residents Registered: {residents.Length}");
         Console.WriteLine($"Total Service Requests Logged: {serviceRequests.Length}");
         Console.WriteLine($"Total Service Requests Processed: {processedRequests.Length}");
@@ -39,12 +37,14 @@ class Program
 
     private static Resident[] RegisterResidents()
     {
+        Helpers helpers = new();
+
         int numberOfResidentsToRegister = helpers.GetValidInt("How many residents would you like to register? ");
         Resident[] residents = new Resident[numberOfResidentsToRegister];
 
         for (int i = 0; i < numberOfResidentsToRegister; i++)
         {
-            Console.WriteLine($"\n--- Regisident {i + 1} ---");
+            Console.WriteLine($"\n--- Resident {i + 1} ---");
 
             string fullName = helpers.GetStringValue("Full Name: "),
                 address = helpers.GetStringValue("Address: "),
@@ -58,18 +58,25 @@ class Program
 
     private static ServiceRequest[] ProcessServiceRequests(ServiceRequest[] serviceRequests)
     {
-        List<ServiceRequest> pendingRequests = [];
+        Helpers helpers = new();
+        List<ServiceRequest> pendingRequests = new List<ServiceRequest>();
 
+        Console.WriteLine($"Enter which requests you would like to process. (1 to {serviceRequests.Length}; 0 = stop)");
+
+        int count = 0;
         while (true)
         {
-            int requestToProcess = helpers.GetValidInt($"Which request would you like to process? (1 to {serviceRequests.Length}; 0 = stop): ", 0, serviceRequests.Length);
+            int requestToProcess = helpers.GetValidInt($"Process request #", 0, serviceRequests.Length); // 0 is used to stop the loop
 
             if (requestToProcess == 0) return [.. pendingRequests];
 
             if (pendingRequests.Contains(serviceRequests[requestToProcess - 1]))
                 Console.WriteLine("This request has already been processed. Please select a different request.");
-            else 
+            else
+            {
                 pendingRequests.Add(serviceRequests[requestToProcess - 1]);
+                count++;
+            }
         }
         
     }

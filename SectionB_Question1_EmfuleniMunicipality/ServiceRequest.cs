@@ -7,7 +7,7 @@ namespace SectionB_Question1_EmfuleniMunicipality
     internal class ServiceRequest
     {
         private Resident resident;
-        private long impactScore;
+        private double impactScore;
         private string requestType;
         private int priorityLevel,
             serverityLevel,
@@ -33,6 +33,6 @@ namespace SectionB_Question1_EmfuleniMunicipality
         public int ServerityLevel { get { return serverityLevel; } }
         public int EstimatedResolutionTime { get { return estimatedResolutionTime; } }
         public int UrgencyScore { get { return urgencyScore; } }
-        public long ImpactScore { get {return impactScore; } }
+        public double ImpactScore { get {return impactScore; } }
     }
 }

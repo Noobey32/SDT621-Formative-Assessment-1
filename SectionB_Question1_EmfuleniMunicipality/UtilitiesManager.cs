@@ -17,9 +17,9 @@ namespace SectionB_Question1_EmfuleniMunicipality
             return urgencyScore < 100 ? urgencyScore : 100;
         }
 
-        public long GetImpactScore(ServiceRequest request)
+        public double GetImpactScore(ServiceRequest request)
         {
-            return request.Resident.MonthlyUtilityUsage * (request.ServerityLevel / 10);
+            return (request.Resident.MonthlyUtilityUsage * (request.ServerityLevel / 10.0));
         }
 
         public void DisplayServiceRequests(ServiceRequest[] serviceRequests, bool includeNumbering)
@@ -33,7 +33,7 @@ namespace SectionB_Question1_EmfuleniMunicipality
                     $"Service Type: {serviceRequests[i].RequestType}\n" +
                     $"Urgency Score: {serviceRequests[i].UrgencyScore}\n" +
                     $"Estimated Resolution Time: {serviceRequests[i].EstimatedResolutionTime} hours\n" +
-                    $"Household Impact Score: {serviceRequests[i].ImpactScore}\n");
+                    $"Household Impact Score: {serviceRequests[i].ImpactScore}");
             }
         }
 
@@ -49,7 +49,7 @@ namespace SectionB_Question1_EmfuleniMunicipality
             {
                 Console.WriteLine($"\n--- Service Request {i + 1} ---");
 
-                int residentAssigned = helpers.GetValidInt($"Which resident is this request for? (1 to {residents.Length}): ", 1, residents.Length);
+                int residentAssigned = helpers.GetValidInt($"Which resident is this request for? (1 - {residents.Length}): ", 1, residents.Length);
                 string requestType = helpers.GetStringValue("Request Type: ");
                 int priorityLevel = helpers.GetValidInt("Priority Level (1-5): ", 1, 5),
                     severityLevel = helpers.GetValidInt("Severity Level (1-10): ", 1, 10),
