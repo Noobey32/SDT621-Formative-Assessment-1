@@ -7,6 +7,7 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("=== Welcome to Emfuleni Municipality Service Desk ===");
+        Console.WriteLine("*Application works best in full screen");
 
         Console.WriteLine("\n=== Resident Registration ===");
         Resident[] residents = RegisterResidents();
@@ -16,20 +17,30 @@ class Program
         Console.WriteLine("\n=== Service Request Logging ===");
         ServiceRequest[] serviceRequests = utilitiesManager.SetServiceRequests(residents);
 
+        Console.WriteLine("\nCreating request summary...");
+        Thread.Sleep(1000); // simulate generation time - UX
+
         Console.WriteLine("\n=== Service Requests Summary ===");
         utilitiesManager.DisplayServiceRequests(serviceRequests, true);
 
+        Thread.Sleep(1000); // UX
         Console.WriteLine("=== Service Request Processing ===");
         ServiceRequest[] processedRequests = ProcessServiceRequests(serviceRequests);
 
+        Console.WriteLine("\nGenerating report...");
+        Thread.Sleep(500); // simulate generation time
         Console.WriteLine("\n=== == === === ==== === === == ===");
+
+        Thread.Sleep(1500);
         Console.WriteLine("\n=== Processed Service Requests ===");
         utilitiesManager.DisplayServiceRequests(processedRequests, false);
 
+        Thread.Sleep(1500);
         Console.WriteLine("=== Final Municipal Report ===");
         FinalizedReport(residents, serviceRequests, processedRequests);
         Console.WriteLine("\n=== == === === ==== === === == ===");
 
+        Thread.Sleep(2000);
         Console.WriteLine("\nThank you for using the Emfuleni Municipality Service Desk. Goodbye!");
     }
 
@@ -66,13 +77,24 @@ class Program
             int requestToProcess = helpers.GetValidInt($"Process request #", 0, serviceRequests.Length); // 0 is used to stop the loop
 
             // if 0 is entered, or all requests have been processed, stop the loop and return the pending requests
-            if (requestToProcess == 0 || pendingRequests.Count == serviceRequests.Length) return pendingRequests.ToArray();
+            if (requestToProcess == 0)
+                return pendingRequests.ToArray();
 
             // avoid duplicates
             if (pendingRequests.Contains(serviceRequests[requestToProcess - 1]))
+            {
                 Console.WriteLine("This request has already been processed. Please select a different request.");
+                continue;
+            }
             else
                 pendingRequests.Add(serviceRequests[requestToProcess - 1]);
+
+            // exit early
+            if (pendingRequests.Count == serviceRequests.Length)
+            {
+                Console.WriteLine("All requests have been selected for processing.");
+                return pendingRequests.ToArray();
+            }
         }
         
     }

@@ -68,7 +68,7 @@ namespace SectionA_Question3_LanguageManager
             string userInput = txtInput.Text.Trim();
             if (RemoveSelectedLanguage())
             {
-                UpdateForm($"Removed selected language at {DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss")}");
+                UpdateForm($"Removed selected language at {DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss")}", false);
                 return;
             }
             else if (string.IsNullOrEmpty(userInput))
@@ -102,9 +102,11 @@ namespace SectionA_Question3_LanguageManager
         }
 
         // update user on a successful action
-        private void UpdateForm(string content)
+        private void UpdateForm(string content, bool clearTextBox = true)
         {
-            txtInput.Clear();
+            if (clearTextBox)
+                txtInput.Clear();
+
             txtInput.Focus();
             languageCount = lbxLanguageList.Items.Count;
 

@@ -19,7 +19,7 @@ namespace SectionB_Question1_EmfuleniMunicipality
 
         public double GetImpactScore(ServiceRequest request)
         {
-            return (request.Resident.MonthlyUtilityUsage * (request.ServerityLevel / 10.0));
+            return Math.Round(request.Resident.MonthlyUtilityUsage * (request.ServerityLevel / 10.0), 2);
         }
 
         public void DisplayServiceRequests(ServiceRequest[] serviceRequests, bool includeNumbering)
@@ -27,7 +27,7 @@ namespace SectionB_Question1_EmfuleniMunicipality
             if (serviceRequests.Length == 0)
             {
                 // improved UX
-                Console.WriteLine("No requests have been processed.");
+                Console.WriteLine("No requests have been processed.\n");
                 return;
             }
 

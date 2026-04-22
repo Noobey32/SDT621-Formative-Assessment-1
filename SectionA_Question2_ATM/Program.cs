@@ -28,16 +28,14 @@ Notes:
 ============================================================
 */
 
-
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("===== CTU Simple ATM System =====\n");
+        Console.WriteLine("===== CTU ATM System =====\n");
 
         // username
-        Console.Write("Hi. Please enter your name: ");
-        string userName = Console.ReadLine();
+        string userName = GetUsername("Hi. Please enter your name: ");
 
         Console.WriteLine($"\nWelcome, {userName}!");
 
@@ -54,7 +52,7 @@ class Program
 
         // balance calculation
         accountBalance -= withdrawalAmount;
-        Console.WriteLine("\nWithdrawal successful!");
+        Console.WriteLine(withdrawalAmount > 0 ? "\nWithdrawal successful!" : "\nNo withdrawal made."); // UX
         Console.WriteLine($"Updated balance: R{accountBalance:F2}");
         Console.WriteLine($"Transaction date and time: {DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss")}");
     }
@@ -70,5 +68,39 @@ class Program
             input = Console.ReadLine();
         }
         return value;
+    }
+
+    private static string GetUsername(string question)
+    {
+        Console.Write(question);
+        string input = Console.ReadLine();
+        
+        while (true)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                Console.Write("While we respect anonymity, please enter your name: ");
+                input = Console.ReadLine();
+            }
+            else
+                break;
+        }
+
+        return TitleCaser(input.ToLower()); // Convert to title case for better display
+    }
+
+    private static string TitleCaser(string input)
+    {
+        string[] words = input.Split(' ');
+        string titleCase = "";
+
+        foreach (string word in words)
+        {
+            if (word.Length > 0)
+            {
+                titleCase += char.ToUpper(word[0]) + word.Substring(1) + " ";
+            }
+        }
+        return titleCase.TrimEnd();
     }
 }
