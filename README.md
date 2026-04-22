@@ -14,6 +14,16 @@ SDT621-Formative-Assessment-1/
 ├── SectionB_Question1_EmfuleniMunicipality/         (Console App)
 └── SectionB_Question2_DigitalIdentityProcessor/     (Windows Forms App)
 
+### Project Overview
+
+| Section | Question | Project Name                                | Application Type |
+| ------- | -------- | ------------------------------------------- | ---------------- |
+| A       | Q1       | SectionA_Question1_StudentResults           | Console App      |
+| A       | Q2       | SectionA_Question2_ATM                      | Console App      |
+| A       | Q3       | SectionA_Question3_LanguageManager          | WinForms App     |
+| B       | Q1       | SectionB_Question1_EmfuleniMunicipality     | Console App      |
+| B       | Q2       | SectionB_Question2_DigitalIdentityProcessor | WinForms App     |
+
 ---
 
 ## ▶️ How to Run a Specific Project
