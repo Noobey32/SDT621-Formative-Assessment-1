@@ -19,18 +19,16 @@ class Program
         Console.WriteLine("\n=== Service Requests Summary ===");
         utilitiesManager.DisplayServiceRequests(serviceRequests, true);
 
-        Console.WriteLine("\n=== Service Request Processing ===");
+        Console.WriteLine("=== Service Request Processing ===");
         ServiceRequest[] processedRequests = ProcessServiceRequests(serviceRequests);
 
+        Console.WriteLine("\n=== == === === ==== === === == ===");
         Console.WriteLine("\n=== Processed Service Requests ===");
         utilitiesManager.DisplayServiceRequests(processedRequests, false);
 
-        Console.WriteLine("\n=== Final Municipal Report ===");
-        // if 0, do not show or indicate that it is 0
-        Console.WriteLine($"Total Residents Registered: {residents.Length}");
-        Console.WriteLine($"Total Service Requests Logged: {serviceRequests.Length}");
-        Console.WriteLine($"Total Service Requests Processed: {processedRequests.Length}");
-        // todo output request with the highest urgency score
+        Console.WriteLine("=== Final Municipal Report ===");
+        FinalizedReport(residents, serviceRequests, processedRequests);
+        Console.WriteLine("\n=== == === === ==== === === == ===");
 
         Console.WriteLine("\nThank you for using the Emfuleni Municipality Service Desk. Goodbye!");
     }
@@ -61,23 +59,52 @@ class Program
         Helpers helpers = new();
         List<ServiceRequest> pendingRequests = new List<ServiceRequest>();
 
-        Console.WriteLine($"Enter which requests you would like to process. (1 to {serviceRequests.Length}; 0 = stop)");
+        Console.WriteLine($"Using the summary above, enter which requests you would like to process. (1 to {serviceRequests.Length}; 0 = stop)");
 
-        int count = 0;
         while (true)
         {
             int requestToProcess = helpers.GetValidInt($"Process request #", 0, serviceRequests.Length); // 0 is used to stop the loop
 
-            if (requestToProcess == 0) return [.. pendingRequests];
+            // if 0 is entered, or all requests have been processed, stop the loop and return the pending requests
+            if (requestToProcess == 0 || pendingRequests.Count == serviceRequests.Length) return pendingRequests.ToArray();
 
+            // avoid duplicates
             if (pendingRequests.Contains(serviceRequests[requestToProcess - 1]))
                 Console.WriteLine("This request has already been processed. Please select a different request.");
             else
-            {
                 pendingRequests.Add(serviceRequests[requestToProcess - 1]);
-                count++;
-            }
         }
         
+    }
+
+    private static void OutputHighestUrgencyRequest(ServiceRequest[] processedRequests)
+    {
+        if (processedRequests.Length == 0)
+        {
+            return;
+        }
+
+        // sort
+        ServiceRequest highestUrgencyRequest = processedRequests[0];
+        foreach (ServiceRequest request in processedRequests)
+        {
+            if (request.UrgencyScore > highestUrgencyRequest.UrgencyScore)
+                highestUrgencyRequest = request;
+        }
+
+        Console.WriteLine("\n--- Highest Urgency Request ---");
+        Console.WriteLine($"Resident: {highestUrgencyRequest.Resident.FullName}\n" +
+            $"Service Type: {highestUrgencyRequest.RequestType}\n" +
+            $"Urgency Score: {highestUrgencyRequest.UrgencyScore}\n" +
+            $"Estimated Resolution Time: {highestUrgencyRequest.EstimatedResolutionTime} hours\n" +
+            $"Household Impact Score: {highestUrgencyRequest.ImpactScore}");
+    }
+
+    private static void FinalizedReport(Resident[] residents, ServiceRequest[] serviceRequests, ServiceRequest[] processedRequests)
+    {
+        Console.WriteLine($"Total Residents Registered: {residents.Length}");
+        Console.WriteLine($"Total Requests Logged: {serviceRequests.Length}");
+        Console.WriteLine($"Total Requests Processed: {processedRequests.Length}");
+        OutputHighestUrgencyRequest(processedRequests);
     }
 }

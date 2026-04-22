@@ -24,6 +24,13 @@ namespace SectionB_Question1_EmfuleniMunicipality
 
         public void DisplayServiceRequests(ServiceRequest[] serviceRequests, bool includeNumbering)
         {
+            if (serviceRequests.Length == 0)
+            {
+                // improved UX
+                Console.WriteLine("No requests have been processed.");
+                return;
+            }
+
             for (int i = 0; i < serviceRequests.Length; i++)
             {
                 if (includeNumbering)
@@ -33,7 +40,7 @@ namespace SectionB_Question1_EmfuleniMunicipality
                     $"Service Type: {serviceRequests[i].RequestType}\n" +
                     $"Urgency Score: {serviceRequests[i].UrgencyScore}\n" +
                     $"Estimated Resolution Time: {serviceRequests[i].EstimatedResolutionTime} hours\n" +
-                    $"Household Impact Score: {serviceRequests[i].ImpactScore}");
+                    $"Household Impact Score: {serviceRequests[i].ImpactScore}\n");
             }
         }
 
