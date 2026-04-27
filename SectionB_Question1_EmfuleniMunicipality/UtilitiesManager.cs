@@ -19,9 +19,11 @@ namespace SectionB_Question1_EmfuleniMunicipality
 
         public double GetImpactScore(ServiceRequest request)
         {
+            // rounded to 2 decimals for better readability in reports
             return Math.Round(request.Resident.MonthlyUtilityUsage * (request.ServerityLevel / 10.0), 2);
         }
 
+        // Service reports
         public void DisplayServiceRequests(ServiceRequest[] serviceRequests, bool includeNumbering)
         {
             if (serviceRequests.Length == 0)
@@ -41,6 +43,8 @@ namespace SectionB_Question1_EmfuleniMunicipality
                     $"Urgency Score: {serviceRequests[i].UrgencyScore}\n" +
                     $"Estimated Resolution Time: {serviceRequests[i].EstimatedResolutionTime} hours\n" +
                     $"Household Impact Score: {serviceRequests[i].ImpactScore}\n");
+
+                Thread.Sleep(500); // slight delay for better readability when displaying multiple requests
             }
         }
 

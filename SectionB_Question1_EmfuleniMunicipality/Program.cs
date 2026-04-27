@@ -44,6 +44,7 @@ class Program
         Console.WriteLine("\nThank you for using the Emfuleni Municipality Service Desk. Goodbye!");
     }
 
+    // Capture residents dynamically
     private static Resident[] RegisterResidents()
     {
         Helpers helpers = new();
@@ -122,6 +123,7 @@ class Program
             $"Household Impact Score: {highestUrgencyRequest.ImpactScore}");
     }
 
+    // List totals and highest urgency of all processed requests
     private static void FinalizedReport(Resident[] residents, ServiceRequest[] serviceRequests, ServiceRequest[] processedRequests)
     {
         Console.WriteLine($"Total Residents Registered: {residents.Length}");

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Text;
 
 namespace SectionB_Question2_DigitalIdentityProcessor
@@ -12,26 +14,53 @@ namespace SectionB_Question2_DigitalIdentityProcessor
         public string Citizenship { get; } = citizenship;
 
         // -1 indicates invalid ID; age is determined only if the ID is valid
-        public int Age { get; } = ValidateID(id).isValid ? DetermineAge(id) : -1;
+        public int Age { get; } = ValidateID(id) ? DetermineAge(id) : -1;
 
-        private static (string message, bool isValid) ValidateID(string id)
+        
+        private static bool ValidateID(string id)
         {
             id = id.Trim();
+
             // Check length
-            if (id.Length != 13) return ("Invalid ID: ID number must be 13 characters long.", false);
+            if (id.Length != 13) 
+                return false;
 
             // Check if numeric
-            if (!double.TryParse(id, out double numericId)) return ("Invalid ID: ID number must contain only numeric characters.", false);
+            foreach (char c in id)
+                if (!char.IsDigit(c))
+                    return false;
 
-            int age = DetermineAge(id);
-            return ($"ID is valid. Age: {age}", true);
+            // Validate month and day using the 3rd to 6th numbers of the ID
+            int idMonth = int.Parse(id.Substring(2, 2));
+            int idDay = int.Parse(id.Substring(4, 2));
+
+            if (idMonth > 12 || idMonth < 1) 
+                return false;
+            else if (idDay > 31 || idDay < 1) 
+                return false;
+
+            switch (idMonth)
+            {
+                case 2 when idDay > 29:
+                    return false;
+                case 4 or 6 or 9 or 11 when idDay > 30:
+                    return false;
+            }
+
+            // Validation passed; ID is valid
+            return true;
         }
 
+        // This function is called is ValidateID() is true; a check is not required
+        // Determines the user's age using the first 6 numbers of the ID
         private static int DetermineAge(string id)
         {
+            id = id.Trim();
+
+            // YEAR
+
             int currentYear = DateTime.Now.Year;
             const int currentYearShortened = 26;
-            // int currentYearShortened = int.Parse(currentYear.ToString().Substring(2, 2)); // Dynamic version
 
             // This funtion is called after validating id; a check is not required
             int birthYearShortened = int.Parse(id.Substring(0, 2));
@@ -42,7 +71,21 @@ namespace SectionB_Question2_DigitalIdentityProcessor
                 _ => 1900 + birthYearShortened
             };
 
-            return currentYear - birthYear;
+            int age = currentYear - birthYear;
+
+            // MONTH + DAY
+
+            int currentMonthDay = int.Parse(DateTime.Now.Month.ToString("D2") + DateTime.Now.Day.ToString("D2"));
+            int userMonthDay = int.Parse(id.Substring(2, 4));
+
+            // If the user's month and day have not yet occurred this year, subtract 1 from the age
+            if (userMonthDay > currentMonthDay)
+                age--;
+
+            if (age < 0)
+                return 99; // Edge-case
+            
+            return age;
         }
     }
 }

@@ -2,6 +2,6 @@
   <Project Path="SectionA_Question1_StudentResults/SectionA_Question1_StudentResults.csproj" />
   <Project Path="SectionA_Question2_ATM/SectionA_Question2_ATM.csproj" />
   <Project Path="SectionA_Question3_LanguageManager/SectionA_Question3_LanguageManager.csproj" />
-  <Project Path="SectionB_Question1_EmfuleniMunicipality/SectionB_Question1_EmfuleniMunicipality.csproj" />
-  <Project Path="SectionB_Question2_DigitalIdentityProcessor/SectionB_Question2_DigitalIdentityProcessor.csproj" />
+  <Project Path="SectionB_Question1_EmfuleniMunicipality/SectionB_Q1.csproj" />
+  <Project Path="SectionB_Question2_DigitalIdentityProcessor/SectionB_Q2.csproj" />
 </Solution>
